@@ -12,6 +12,17 @@
 4. GRANT ALL PRIVILEGES ON DATABASE udacity_test to mahmoudv2023;
 
 
+# you .env should look like this
+{
+    host = 127.0.0.1
+    user = mahmoudv2023
+    password = vcut2023
+    database= udacity
+    ENV=dev
+    pepper="my personal pepper"
+    SALT_ROUNDS = 10
+    SECRET = "vcut2023"
+}
 
 ## To Start the Project
 1. npm install
