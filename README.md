@@ -18,6 +18,7 @@
     user = mahmoudv2023
     password = vcut2023
     database= udacity
+    database_test= udacity
     ENV=dev
     pepper="my personal pepper"
     SALT_ROUNDS = 10

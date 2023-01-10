@@ -3,10 +3,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-let {host,user,password,database , ENV} = process.env
+let {host,user,password,database , database_test , ENV} = process.env
 console.log(ENV)
 if(ENV == "test"){
-    database="udacity_test"
+    database=database_test
 }
 
 
