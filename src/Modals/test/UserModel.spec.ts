@@ -12,12 +12,12 @@ describe("module for testing the User modal" , () => {
         expect(await modal.register("omar" , "hesham" , "password1232")).toBeTruthy()
     })
 
-    fit("expects to return all users" ,async () => {
+    it("expects to return all users" ,async () => {
         const res = await axios.get("http://localhost:3000/users")
         expect(res.status).toEqual(200)
     })
 
-    fit("expects to return the second user by id" ,async () => {
+    it("expects to return the second user by id" ,async () => {
         const res = await axios.get("http://localhost:3000/users/2")
         expect(res.status).toEqual(200)
     })
@@ -29,6 +29,7 @@ describe("module for testing the User modal" , () => {
             "password":"password1232"
         },{
             headers:{
+                //dont forget to change the token by getting a new one when you register
                 "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFzZGFzZCIsImlhdCI6MTY3MjgwODMyOH0.OAzyl7ARG_pRCDFmqg6hqwJ4jS5DyDWBcHmNx-wwMiI"
             }
         })

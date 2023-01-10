@@ -101,7 +101,7 @@ export default class OrderModel{
         try {
             const sql = `delete from orders where id = $1;`
             const client = await myClient.connect()
-            const result = await client.query(sql , [req.params.orderID])
+            await client.query(sql , [req.params.orderID])
       
 
       
@@ -109,7 +109,7 @@ export default class OrderModel{
       
             res.status(200).json({msg : "Order Deleted Successfully"})
         } catch (error) {
-            throw new Error(error as string)
+            res.status(500).json(error)
         }
 
       }
@@ -127,10 +127,16 @@ export default class OrderModel{
       
   
          client.release()
-  
-         res.status(200).json(orders)
+        if(!orders){
+            res.status(301).json("Such Order Doesn't Exist")
+            return
+        }
+       
     } catch (error) {
+      
         res.status(301).json(error)
+        return
+
     }
    
 
@@ -144,7 +150,10 @@ export default class OrderModel{
          client.release()
   
         res.status(200).json(orders)
+        return
+
     } catch (error) {
+        //console.log(error)
         res.status(301).json(error)
     }
   } 
