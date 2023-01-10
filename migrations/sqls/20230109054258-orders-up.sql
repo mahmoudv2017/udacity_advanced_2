@@ -1,1 +1,1 @@
-create TABLE orders(id serial PRIMARY key , user_id bigint REFERENCES users(id) , status varchar(50))
+create TABLE orders(id serial PRIMARY key , user_id bigint REFERENCES users(id) , status varchar(50));
