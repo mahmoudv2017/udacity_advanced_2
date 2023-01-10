@@ -10,7 +10,8 @@
 2. CREATE DATABASE udacity;
 3. GRANT ALL PRIVILEGES ON DATABASE UDACITY to mahmoudv2023;
 4. GRANT ALL PRIVILEGES ON DATABASE udacity_test to mahmoudv2023;
-5. db-migrate up
+5. npm install db-migrate -g
+6. db-migrate up
 
 
 # you .env should look like this
