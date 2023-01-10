@@ -11,7 +11,7 @@ export function UserRoutes(app:express.Application){
         res.status(200).json(results);
     })
 
-    app.post("/login" , userStore.verifyAuthToken , userStore.login)
+    app.post("/login" , userStore.login)
 
     app.get("/users" , userStore.GetAllUsers)
     app.get("/users/:id" , userStore.GetUser)
