@@ -12,6 +12,16 @@ describe("module for testing the User modal" , () => {
         expect(await modal.register("omar" , "hesham" , "password1232")).toBeTruthy()
     })
 
+    fit("expects to return all users" ,async () => {
+        const res = await axios.get("http://localhost:3000/users")
+        expect(res.status).toEqual(200)
+    })
+
+    fit("expects to return the second user by id" ,async () => {
+        const res = await axios.get("http://localhost:3000/users/2")
+        expect(res.status).toEqual(200)
+    })
+
     xit("expects login to be compeleted with status code 200" , async () => {
 
         const res = await axios.post("http://localhost:3000/login",{
