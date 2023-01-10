@@ -4,7 +4,7 @@
   "description": "This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.",
   "main": "server.ts",
   "scripts": {
-    "start": " tsc && cross-env ENV=DEV node build/server.js",
+    "start": " tsc && cross-env ENV=test node build/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "test": " tsc && cross-env ENV=test jasmine",
     "build": "tsc"

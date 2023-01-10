@@ -77,7 +77,7 @@ export default class ProductModal{
    async CreateProduct(req:express.Request , res:express.Response) {
     try {
         const Client =  await myClient.connect()
-        let sql = `INSERT INTO products(name,price,category) values($1 , $2 , $3)`
+        let sql = `INSERT INTO products(name,price,category) values($1 , $2 , $3) Returning *;`
   
         let results = await Client.query(sql ,[req.body.name , req.body.price , req.body.category]);
   

@@ -11,9 +11,9 @@ export type Order={
 export default class OrderModel{
   
     async Create(req:express.Request , res:express.Response) {
-
-        try {
-            const sql = 'INSERT INTO order (user_id, status) VALUES($1, $2) RETURNING *;'
+        console.log("asdasd")
+        try { 
+            const sql = 'INSERT INTO orders (user_id, status) VALUES($1, $2) RETURNING *;'
             const client = await myClient.connect()
             const result = await client.query(sql, [req.params.userID, req.body.status])
       
@@ -49,7 +49,7 @@ export default class OrderModel{
       async Show(req:express.Request , res:express.Response){
 
         try {
-            const sql = 'update from orders where user_id=$1 and id=$2;'
+            const sql = 'select * from orders where user_id=$1 and id=$2;'
             const client = await myClient.connect()
             const result = await client.query(sql , [ req.params.userID , req.params.orderID])
       
@@ -67,9 +67,9 @@ export default class OrderModel{
       async Update(req:express.Request , res:express.Response) {
 
         try {
-            const sql = `UPDATE products SET status = $1 WHERE user_id=$2 and id = $3;`
+            const sql = `UPDATE orders SET status = $1 WHERE user_id=$2 and id = $3;`
             const client = await myClient.connect()
-            const result = await client.query(sql , [ req.body.status , req.body.userID , req.params.orderID])
+            const result = await client.query(sql , [ req.body.status , req.params.userID , req.params.orderID])
       
             const orders = result.rows
       
@@ -83,6 +83,20 @@ export default class OrderModel{
       }
 
       async Delete(req:express.Request , res:express.Response) {
+
+        try {
+            const sql = `delete from orders_products where order_id = $1;`
+            const client = await myClient.connect()
+            await client.query(sql , [req.params.orderID])
+      
+
+      
+             client.release()
+      
+    
+        } catch (error) {
+            throw new Error(error as string)
+        }
 
         try {
             const sql = `delete from orders where id = $1;`
