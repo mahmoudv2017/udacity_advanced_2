@@ -12,4 +12,7 @@ export function UserRoutes(app:express.Application){
     })
 
     app.post("/login" , userStore.verifyAuthToken , userStore.login)
+
+    app.get("/users" , userStore.GetAllUsers)
+    app.get("/users/:id" , userStore.GetUser)
 }

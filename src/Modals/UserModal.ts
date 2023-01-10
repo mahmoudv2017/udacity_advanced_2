@@ -57,6 +57,36 @@ export class user_class{
         res.status(401).json("Access Denied")
    }
 
+   async GetAllUsers(req:express.Request , res:express.Response) {
+    try {
+        const client = await Client.connect();
+
+        let sql = 'select * from users;';
+
+        const results = await client.query(sql);
+       
+        res.status(200).json(results.rows)
+    } catch (error) {
+        res.status(305).json(error)
+    }
+   
+}
+
+async GetUser(req:express.Request , res:express.Response) {
+    try {
+        const client = await Client.connect();
+
+        let sql = 'select * from users where id=$1';
+        let userID = req.params.id 
+        const results = await client.query(sql , [userID]);
+       
+        res.status(200).json(results.rows)
+    } catch (error) {
+        res.status(305).json(error)
+    }
+   
+}
+
    verifyAuthToken(req:express.Request , res:express.Response , next:express.NextFunction){
 
     try {
