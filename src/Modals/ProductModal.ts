@@ -2,10 +2,10 @@ import myClient from '../database'
 import express from 'express'
 
 export type Product={
-    id:number,
+    id?:number,
     name:string,
-    price:string,
-    category:string
+    price:number,
+    category?:string
 }
 
 export default class ProductModal{
@@ -74,12 +74,13 @@ export default class ProductModal{
       
     }
 
-   async CreateProduct(payload:any) {
+   async CreateProduct(payloader:Product) {
+
     try {
         const Client =  await myClient.connect()
-        let sql = `INSERT INTO products(name,price,category) values($1 , $2 , $3) Returning *;`
-  
-        let results = await Client.query(sql ,[payload.name , payload.price , payload.category]);
+        let sql = `INSERT INTO products(name,price,category) values($1 , $2 , $3) Returning *;` 
+
+        let results = await Client.query(sql ,[payloader.name , payloader.price , payloader.category]);
   
         Client.release();
         return(results.rows)

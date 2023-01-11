@@ -51,9 +51,10 @@ export const orderRoutes = (app: express.Application) => {
     app.post('/users/:userID/orders/:orderID/products', auth.verifyAuthToken, async (req,res) => {
 
         try {
-            let result = await handler.addProduct( Number(req.params.orderID) , Number(req.params.userID),{quantity:req.body.quantity , product_id:req.body.status})
+            let result = await handler.addProduct( Number(req.params.orderID) , Number(req.params.userID),{quantity:req.body.quantity , product_id:req.body.product_id})
             res.status(200).json(result)
         } catch (error) {
+           
             res.status(301).json(error)
         }
  

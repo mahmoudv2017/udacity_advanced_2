@@ -26,12 +26,19 @@ export default function ProductsRoutes(app:express.Application){
         .catch(err => res.status(500).json(err))
     });
 
-    app.post("/products" , auth.verifyAuthToken ,handler.CreateProduct);
+    app.post("/products" , auth.verifyAuthToken ,(req,res) => {
+ 
+        handler.CreateProduct(req.body)
+        .then(response => res.status(200).json(response))
+        .catch(err => res.status(500).json(err))
+    });
 
     app.delete("/products/:id" ,async (req,res)=>{
 
         handler.DeleteProduct(Number(req.params.id))
         .then(response => res.status(200).json(response))
-        .catch(err => res.status(500).json(err))
+        .catch(err => {
+            console.log(err)
+            res.status(500).json(err)})
     });
 }

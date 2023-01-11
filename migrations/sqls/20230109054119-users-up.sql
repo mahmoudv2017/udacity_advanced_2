@@ -1,1 +1,2 @@
 CREATE table users(id serial PRIMARY key , firstname varchar(65) , lastname varchar(100) , password text);
+INSERT INTO users(firstname , lastname , password) VALUES('test' , 'lasttest','$2b$10$ri.kCp7Igae2fD5mzmE0z.OwA.DAmLAIV3BOk6zJrh6WaqwXJnlee');

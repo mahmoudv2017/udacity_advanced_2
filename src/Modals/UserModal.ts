@@ -7,9 +7,9 @@ import express from 'express';
 dotenv.config()
 
 export type User = {
-    id:number,
+    id?:number,
     firstname:string,
-    lastname:string,
+    lastname?:string,
     password:string
 }
 
@@ -39,7 +39,7 @@ export class user_class{
 
    }
 
-   async login(payload:any) {
+   async login(payload:User) {
         const client = await Client.connect();
 
         let sql = 'select * from users where firstname=$1';
@@ -50,7 +50,7 @@ export class user_class{
 
             if(bcrypt.compareSync(password+pepper , results.rows[0].password)){
                const token = jwt.sign({username} , process.env.SECRET as string)
-                return ({token:token , results:results.rows});
+                return (token);
               
             }
         }
@@ -88,12 +88,14 @@ async GetUser(userID:number) {
 }
 
    verifyAuthToken(req:express.Request , res:express.Response , next:express.NextFunction){
-
+ 
     try {
 
         const authorization_header = req.headers.authorization;
         const Actual_token:string = authorization_header?.split(" ")[1] as string
         jwt.verify(Actual_token , process.env.SECRET as string)
+
+    
         next();
     } catch (error) {
         res.status(401).json("Token Denied")

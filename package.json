@@ -6,7 +6,7 @@
   "scripts": {
     "start": " tsc && cross-env ENV=dev node build/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": " tsc && db-migrate up && cross-env ENV=test jasmine",
+    "test": " tsc && db-migrate -e test up && cross-env ENV=test jasmine",
     "build": "tsc"
   },
   "author": "Udacity",
