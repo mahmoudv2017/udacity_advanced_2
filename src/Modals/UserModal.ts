@@ -39,25 +39,25 @@ export class user_class{
 
    }
 
-   async login(req:express.Request , res:express.Response) {
+   async login(payload:any) {
         const client = await Client.connect();
 
         let sql = 'select * from users where firstname=$1';
-        let username = req.body.firstname;
-        let password = req.body.password;
+        let username = payload.firstname;
+        let password = payload.password;
         const results = await client.query(sql , [username]);
         if(results.rows.length){
 
             if(bcrypt.compareSync(password+pepper , results.rows[0].password)){
                const token = jwt.sign({username} , process.env.SECRET as string)
-                res.status(200).json(token);
-                return;
+                return ({token:token , results:results.rows});
+              
             }
         }
-        res.status(401).json("Access Denied")
+        throw new Error("Access Denied")
    }
 
-   async GetAllUsers(req:express.Request , res:express.Response) {
+   async GetAllUsers() {
     try {
         const client = await Client.connect();
 
@@ -65,24 +65,24 @@ export class user_class{
 
         const results = await client.query(sql);
        
-        res.status(200).json(results.rows)
+       return (results.rows)
     } catch (error) {
-        res.status(305).json(error)
+        throw new Error(error as string)
     }
    
 }
 
-async GetUser(req:express.Request , res:express.Response) {
+async GetUser(userID:number) {
     try {
         const client = await Client.connect();
 
         let sql = 'select * from users where id=$1';
-        let userID = req.params.id 
+  
         const results = await client.query(sql , [userID]);
        
-        res.status(200).json(results.rows)
+        return (results.rows)
     } catch (error) {
-        res.status(305).json(error)
+        throw new Error(error as string)
     }
    
 }

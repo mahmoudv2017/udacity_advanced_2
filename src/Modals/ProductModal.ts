@@ -74,15 +74,15 @@ export default class ProductModal{
       
     }
 
-   async CreateProduct(req:express.Request , res:express.Response) {
+   async CreateProduct(payload:any) {
     try {
         const Client =  await myClient.connect()
         let sql = `INSERT INTO products(name,price,category) values($1 , $2 , $3) Returning *;`
   
-        let results = await Client.query(sql ,[req.body.name , req.body.price , req.body.category]);
+        let results = await Client.query(sql ,[payload.name , payload.price , payload.category]);
   
         Client.release();
-        res.status(200).json(results.rows)
+        return(results.rows)
     } catch (error) {
         throw new Error(error as string)
     }

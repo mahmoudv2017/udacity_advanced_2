@@ -13,6 +13,26 @@ export function UserRoutes(app:express.Application){
 
     app.post("/login" , userStore.login)
 
-    app.get("/users" , userStore.GetAllUsers)
-    app.get("/users/:id" , userStore.GetUser)
+    app.get("/users" , userStore.verifyAuthToken , async (req,res) => {
+        try {
+            const result = await userStore.GetAllUsers()
+            res.status(200).json(result)
+        } catch (error) {
+            res.status(301).json(error)
+        }
+
+
+  
+    })
+    app.get("/users/:id" , userStore.verifyAuthToken ,async (req,res) => {
+        try {
+            const result = await userStore.GetUser( Number(req.params.id) )
+            res.status(200).json(result)
+        } catch (error) {
+            res.status(301).json(error)
+        }
+
+
+  
+    })
 }

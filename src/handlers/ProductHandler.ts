@@ -1,8 +1,10 @@
 import ProductModal , {Product} from '../Modals/ProductModal'
 import express from 'express';
+import {user_class} from '../Modals/UserModal'
 
 
 let handler= new ProductModal()
+let auth = new user_class()
 
 export default function ProductsRoutes(app:express.Application){
     app.get("/products", async (req,res)=>{
@@ -24,7 +26,7 @@ export default function ProductsRoutes(app:express.Application){
         .catch(err => res.status(500).json(err))
     });
 
-    app.post("/products" ,handler.CreateProduct);
+    app.post("/products" , auth.verifyAuthToken ,handler.CreateProduct);
 
     app.delete("/products/:id" ,async (req,res)=>{
 

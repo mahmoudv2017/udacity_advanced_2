@@ -22,6 +22,7 @@
     database= udacity
     database_test= udacity
     ENV=dev
+    PORT = 5432
     pepper="my personal pepper"
     SALT_ROUNDS = 10
     SECRET = "vcut2023"
@@ -31,4 +32,5 @@
 1. npm install
 2. npm start
 3. the server will be hosted on PORT = 3000 by default
+4. Database Will be Hosted on PORT = 5432 by Default
 

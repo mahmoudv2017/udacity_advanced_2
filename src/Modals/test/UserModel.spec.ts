@@ -13,27 +13,25 @@ describe("module for testing the User modal" , () => {
     })
 
     it("expects to return all users" ,async () => {
-        const res = await axios.get("http://localhost:3000/users")
-        expect(res.status).toEqual(200)
+        const res = await modal.GetAllUsers()
+        expect(res.length).toBeGreaterThan(0)
     })
 
     it("expects to return the second user by id" ,async () => {
-        const res = await axios.get("http://localhost:3000/users/2")
-        expect(res.status).toEqual(200)
+        const res = await modal.GetUser(2)
+        expect(res.length).toBeGreaterThan(0)
     })
 
     xit("expects login to be compeleted with status code 200" , async () => {
+        let payload = {
+            firstname:"omar",
+            password:"password1232"
+        }
 
-        const res = await axios.post("http://localhost:3000/login",{
-            "firstname":"omar",
-            "password":"password1232"
-        },{
-            headers:{
-                //dont forget to change the token by getting a new one when you register
-                "Authorization" : "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFzZGFzZCIsImlhdCI6MTY3MjgwODMyOH0.OAzyl7ARG_pRCDFmqg6hqwJ4jS5DyDWBcHmNx-wwMiI"
-            }
-        })
-        
-        expect(res.status).toEqual(200)
+ 
+        const res = await modal.login(payload)
+    
+        expect(res.results.length).toBeGreaterThan(0)
+       
     })
 })

@@ -9,16 +9,18 @@ describe("module for testing the products handler and modal" , () => {
     let modal =  new ProductModal()
     supertest(app)
     it("expects the Create request to return the created elemnt" , async () => {
-        let res = await axios.post("http://localhost:3000/products",{name:"mahmoud" , price:515.555 , category:"asdasd"})
-        expect(res.status).toBe(200)
+        let res = await modal.CreateProduct({name:"mahmoud" , price:515.555 , category:"asdasd"})
+        expect(res.length).toBeGreaterThan(0)
     })
     it("expects the index request to return an empty array" , async () => {
-        expect((await axios.get(`http://localhost:3000/products`)).status).toEqual(200)
+        await modal.CreateProduct({name:"maasdasdhmoud" , price:515.555 , category:"asdasd"})
+        let res = await modal.index()
+        expect( res.length  ).toBeGreaterThan(0)
     })
     it("expects the Show request to return with 200 status code" , async () => {
-        let res = await axios.get(`http://localhost:3000/products/2`)
+        let res = await modal.show(1)
 
-        expect(res.status).toEqual(200)
+        expect(res.length).toBeGreaterThan(0)
     })
     it("expects the Update request to return true" , async () => {
         expect(await modal.UpdateProduct(500,1)).toBeTruthy()
